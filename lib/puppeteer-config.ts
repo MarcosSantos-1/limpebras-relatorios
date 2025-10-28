@@ -30,7 +30,7 @@ export async function getPuppeteerConfig() {
     }
     
     return {
-      headless: chromium.headless,
+      headless: chromium.headless as boolean,
       args: [...chromium.args, '--single-process', '--disable-dev-shm-usage'],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
