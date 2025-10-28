@@ -24,12 +24,14 @@ export async function getPuppeteerConfig() {
   
   if (isProduction) {
     // Configuração para Vercel/Produção - usar chromium
-    // Configurar chromium antes de pegar o executablePath
-    chromium.setGraphicsMode(false);
+    // Baixar e preparar o Chromium se necessário
+    if (!process.env.CHROMIUM_EXECUTABLE_PATH) {
+      chromium.font(process.env.CHROMIUM_FONTS_PATH || '/tmp/fonts');
+    }
     
     return {
       headless: chromium.headless,
-      args: [...chromium.args, '--single-process'],
+      args: [...chromium.args, '--single-process', '--disable-dev-shm-usage'],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
     };
