@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Relatórios - LimpaSP",
-  description: "Sistema de relatórios da LimpaSP",
+  title: "Relatórios - Limpebras",
+  description: "Sistema de relatórios da Limpebras",
   icons: {
     icon: [
       { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -44,6 +44,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning={true}>
       <head>
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon/favicon-16x16.png" type="image/png" sizes="16x16" />
+        <link rel="icon" href="/favicon/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" sizes="180x180" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
