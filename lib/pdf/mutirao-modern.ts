@@ -1078,14 +1078,6 @@ export async function exportMutiraoPdf(rel: MutiraoRelatorio): Promise<Uint8Arra
   const config = await getPuppeteerConfig();
   
   const browser = await puppeteer.launch(config);
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
-    ]
-  });
 
     try {
         const page = await browser.newPage();
