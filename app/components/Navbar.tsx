@@ -16,7 +16,7 @@ export function Navbar() {
   //const { user, logout, isAdmin } = useAuth();
   
   // Valores mockados para desativar autenticação
-  const user: User | null = null;
+  const user = null as User | null;
   const isAdmin = true; // Mostrar menus para todos
   const [showUserMenu, setShowUserMenu] = useState(false);
 
