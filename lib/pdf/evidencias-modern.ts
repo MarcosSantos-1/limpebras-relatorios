@@ -1008,9 +1008,8 @@ export async function exportEvidenciasPdf(rel: Relatorio): Promise<Uint8Array> {
   
   const config = await getPuppeteerConfig();
   
-  // Usar puppeteer completo se disponível, senão usar puppeteer-core
-  const puppeteerToUse = puppeteerDev || puppeteer;
-  const browser = await puppeteerToUse.launch(config);
+  // Usar puppeteer-core na produção (Vercel) ou puppeteer completo no dev
+  const browser = await puppeteer.launch(config);
   
   try {
     const page = await browser.newPage();
@@ -1069,9 +1068,8 @@ export async function exportEventosPdf(rel: EventosRelatorio | RegistroRelatorio
   
   const config = await getPuppeteerConfig();
   
-  // Usar puppeteer completo se disponível, senão usar puppeteer-core
-  const puppeteerToUse = puppeteerDev || puppeteer;
-  const browser = await puppeteerToUse.launch(config);
+  // Usar puppeteer-core na produção (Vercel) ou puppeteer completo no dev
+  const browser = await puppeteer.launch(config);
   
   try {
     const page = await browser.newPage();
