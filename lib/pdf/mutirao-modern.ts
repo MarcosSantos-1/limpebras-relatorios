@@ -1074,10 +1074,10 @@ export function generateMutiraoHTML(rel: MutiraoRelatorio): string {
 
 // Função principal para gerar PDF do mutirão usando Puppeteer
 export async function exportMutiraoPdf(rel: MutiraoRelatorio): Promise<Uint8Array> {
-  // Usar puppeteer completo diretamente em desenvolvimento
-  const puppeteerInstance = (process.env.NODE_ENV !== 'production' && puppeteerDev) ? puppeteerDev : puppeteer;
+  console.log('🎯 Iniciando exportMutiraoPdf');
+  const config = await getPuppeteerConfig();
   
-  const browser = await puppeteerInstance.launch({
+  const browser = await puppeteer.launch(config);
     headless: true,
     args: [
       '--no-sandbox',
@@ -1470,18 +1470,10 @@ export function generateRegistroHTML(rel: RegistroRelatorio): string {
 
 // Função para gerar PDF de registro usando Puppeteer
 export async function exportRegistroPdf(rel: RegistroRelatorio): Promise<Uint8Array> {
-  // Usar puppeteer completo diretamente em desenvolvimento
-  const puppeteerInstance = (process.env.NODE_ENV !== 'production' && puppeteerDev) ? puppeteerDev : puppeteer;
+  console.log('🎯 Iniciando exportRegistroPdf');
+  const config = await getPuppeteerConfig();
   
-  const browser = await puppeteerInstance.launch({
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
-    ]
-  });
+  const browser = await puppeteer.launch(config);
 
     try {
         const page = await browser.newPage();
@@ -2950,18 +2942,10 @@ export function generateEvidenciasMutiroesHTML(mutiroes: MutiraoRelatorio[], dat
 
 // Função para gerar PDF de evidências de mutirões
 export async function exportEvidenciasMutiroesPdf(mutiroes: MutiraoRelatorio[], data: string): Promise<Uint8Array> {
-  // Usar puppeteer completo diretamente em desenvolvimento
-  const puppeteerInstance = (process.env.NODE_ENV !== 'production' && puppeteerDev) ? puppeteerDev : puppeteer;
+  console.log('🎯 Iniciando exportEvidenciasMutiroesPdf');
+  const config = await getPuppeteerConfig();
   
-  const browser = await puppeteerInstance.launch({
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
-    ]
-  });
+  const browser = await puppeteer.launch(config);
 
     try {
         const page = await browser.newPage();
