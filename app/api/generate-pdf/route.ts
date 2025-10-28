@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
       case 'eventos':
         console.log('🔄 Processando eventos...', dados.tipoServico);
         // Relatórios de eventos com legendas especiais
-        pdfBuffer = await exportEventosPdf(dados as Relatorio);
+        pdfBuffer = await exportEventosPdf(dados as EventosRelatorio | RegistroRelatorio);
         fileName = generateFileName(dados as Relatorio);
         break;
 
