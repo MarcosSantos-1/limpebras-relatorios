@@ -22,9 +22,27 @@ if (process.env.NODE_ENV !== 'production') {
 export async function getPuppeteerConfig() {
   const isProduction = process.env.NODE_ENV === 'production';
   
+  // Verificar se está em Docker com Chromium instalado
+  if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+    console.log('🐳 Usando Chromium do Docker:', process.env.PUPPETEER_EXECUTABLE_PATH);
+    return {
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--disable-gpu',
+        '--single-process'
+      ],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    };
+  }
+  
   if (isProduction) {
-    // Configuração para Vercel/Produção - usar chromium
-    // Baixar e preparar o Chromium se necessário
+    // Vercel - usar chromium do sparticuz
+    console.log('☁️ Usando Chromium do Sparticuz para Vercel');
     if (!process.env.CHROMIUM_EXECUTABLE_PATH) {
       chromium.font(process.env.CHROMIUM_FONTS_PATH || '/tmp/fonts');
     }
