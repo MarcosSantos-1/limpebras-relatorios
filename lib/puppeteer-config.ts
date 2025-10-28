@@ -25,7 +25,7 @@ export async function getPuppeteerConfig() {
   // Verificar se está em Docker com Chromium instalado
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     console.log('🐳 Usando Chromium do Docker:', process.env.PUPPETEER_EXECUTABLE_PATH);
- элемен return {
+    return {
       headless: true as any,
       args: [
         '--no-sandbox',
