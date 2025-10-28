@@ -3,12 +3,20 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 //import { useAuth } from "@/lib/auth";
 
+// Tipo mockado do usuário
+type User = {
+  name?: string;
+  nome?: string;
+  email?: string;
+  role?: string;
+};
+
 export function Navbar() {
   const [isDark, setIsDark] = useState(false);
   //const { user, logout, isAdmin } = useAuth();
   
   // Valores mockados para desativar autenticação
-  const user = null;
+  const user: User | null = null;
   const isAdmin = true; // Mostrar menus para todos
   const [showUserMenu, setShowUserMenu] = useState(false);
 
