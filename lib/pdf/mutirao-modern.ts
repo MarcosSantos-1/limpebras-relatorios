@@ -1486,14 +1486,29 @@ export async function exportRegistroPdf(rel: RegistroRelatorio): Promise<Uint8Ar
     try {
         const page = await browser.newPage();
 
+        // Configurar timeout da página para evitar travamentos
+        page.setDefaultNavigationTimeout(60000); // 60 segundos
+
         // Gerar HTML
         const html = generateRegistroHTML(rel);
 
-        // Carregar HTML na página
-        await page.setContent(html, { waitUntil: 'networkidle0' });
+        // Carregar HTML na página com timeout maior
+        try {
+            await page.setContent(html, { 
+                waitUntil: ['domcontentloaded', 'load'],
+                timeout: 60000 
+            });
+        } catch (error) {
+            // Se falhar com load, tentar apenas com domcontentloaded
+            console.warn('Carregamento com load falhou, tentando apenas domcontentloaded');
+            await page.setContent(html, { 
+                waitUntil: 'domcontentloaded',
+                timeout: 30000 
+            });
+        }
 
         // Aguardar um pouco mais para garantir que as imagens carreguem
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
 
         // Gerar PDF
         const pdf = await page.pdf({
@@ -2951,14 +2966,29 @@ export async function exportEvidenciasMutiroesPdf(mutiroes: MutiraoRelatorio[], 
     try {
         const page = await browser.newPage();
 
+        // Configurar timeout da página para evitar travamentos
+        page.setDefaultNavigationTimeout(60000); // 60 segundos
+
         // Gerar HTML
         const html = generateEvidenciasMutiroesHTML(mutiroes, data);
 
-        // Carregar HTML na página
-        await page.setContent(html, { waitUntil: 'networkidle0' });
+        // Carregar HTML na página com timeout maior
+        try {
+            await page.setContent(html, { 
+                waitUntil: ['domcontentloaded', 'load'],
+                timeout: 60000 
+            });
+        } catch (error) {
+            // Se falhar com load, tentar apenas com domcontentloaded
+            console.warn('Carregamento com load falhou, tentando apenas domcontentloaded');
+            await page.setContent(html, { 
+                waitUntil: 'domcontentloaded',
+                timeout: 30000 
+            });
+        }
 
         // Aguardar um pouco mais para garantir que as imagens carreguem
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
 
         // Gerar PDF
         const pdf = await page.pdf({
