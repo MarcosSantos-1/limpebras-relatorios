@@ -1,6 +1,6 @@
 "use client";
 import { MutiraoRelatorio, RegistroRelatorio, RevitalizacaoRelatorio, DDSRelatorio, MonumentosRelatorio, EventosRelatorio, RotineirosRelatorio, Relatorio, ReportSummary } from "./types";
-import { relatoriosService } from "./api-client";
+// import { relatoriosService } from "./api-client"; // Removido - não mais usado
 
 // Sistema de armazenamento usando IndexedDB apenas
 class RelatoriosStorage {
@@ -16,7 +16,7 @@ class RelatoriosStorage {
 
   // Salvar relatório
   async saveRelatorio(relatorio: Relatorio): Promise<Relatorio> {
-    console.log("💾 Salvando relatório:", relatorio.title);
+    console.log("💾 Salvando relatório:", relatorio);
     return await this.localStorage.saveRelatorio(relatorio);
   }
 
