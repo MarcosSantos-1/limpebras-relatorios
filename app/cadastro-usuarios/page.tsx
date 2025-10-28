@@ -46,7 +46,7 @@ export default function UserRegistrationPage() {
         updateUser(editingUser.id, formData);
         toast.success('Usuário atualizado com sucesso!');
       } else {
-        addUser({ ...formData, nome: formData.name, isActive: true });
+        addUser({ ...formData, nome: formData.name, active: true });
         toast.success('Usuário criado com sucesso!');
       }
       
@@ -61,7 +61,7 @@ export default function UserRegistrationPage() {
   const handleEdit = (user: User) => {
     setEditingUser(user);
     setFormData({
-      name: user.nome,
+      name: user.name,
       email: user.email,
       username: user.username,
       password: '', // Não mostrar senha atual
@@ -76,7 +76,7 @@ export default function UserRegistrationPage() {
       return;
     }
     
-    if (confirm(`Tem certeza que deseja deletar o usuário ${user.nome}?`)) {
+    if (confirm(`Tem certeza que deseja deletar o usuário ${user.name}?`)) {
       try {
         deleteUser(user.id);
         toast.success('Usuário deletado com sucesso!');
@@ -94,7 +94,7 @@ export default function UserRegistrationPage() {
     
     try {
       toggleUserStatus(user.id);
-      toast.success(`Usuário ${user.isActive ? 'desativado' : 'ativado'} com sucesso!`);
+      toast.success(`Usuário ${user.active ? 'desativado' : 'ativado'} com sucesso!`);
     } catch (error) {
       toast.error('Erro ao alterar status do usuário');
     }
@@ -286,11 +286,11 @@ export default function UserRegistrationPage() {
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
                           user.role === 'host' ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gradient-to-r from-blue-500 to-cyan-500'
                         }`}>
-                           {user.nome.charAt(0).toUpperCase()}
+                           {user.name.charAt(0).toUpperCase()}
                         </div>
                         <div>
                           <div className="font-semibold text-slate-800 dark:text-slate-200">
-                            {user.nome}
+                            {user.name}
                           </div>
                         </div>
                       </div>
@@ -314,11 +314,11 @@ export default function UserRegistrationPage() {
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        user.isActive 
+                        user.active 
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
                           : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                       }`}>
-                        {user.isActive ? '✅ Ativo' : '❌ Inativo'}
+                        {user.active ? '✅ Ativo' : '❌ Inativo'}
                       </span>
                     </td>
                     <td className="px-6 py-4">
@@ -338,13 +338,13 @@ export default function UserRegistrationPage() {
                             <button
                               onClick={() => handleToggleStatus(user)}
                               className={`p-2 rounded-lg transition-colors duration-200 ${
-                                user.isActive 
+                                user.active 
                                   ? 'bg-yellow-100 hover:bg-yellow-200 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-yellow-600 dark:text-white'
                                   : 'bg-green-100 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-500 text-green-600 dark:text-white'
                               }`}
-                              title={user.isActive ? 'Desativar usuário' : 'Ativar usuário'}
+                              title={user.active ? 'Desativar usuário' : 'Ativar usuário'}
                             >
-                              {user.isActive ? (
+                              {user.active ? (
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728" />
                                 </svg>

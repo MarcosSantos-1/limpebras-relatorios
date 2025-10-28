@@ -19,7 +19,8 @@ export type TipoServico =
   | "VARRICAO_MECANIZADA"
   | "FEIRAS"
   | "EVENTOS"
-  | "ROTINEIROS";
+  | "ROTINEIROS"
+  | "MONUMENTOS";
 
 export const TIPOS_SERVICO = {
   MUTIRAO: "Mutirão - SELIMP",

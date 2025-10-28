@@ -14,7 +14,9 @@ export default function LoginPage() {
   // const { login } = useAuth();
   const router = useRouter();
   
-  const login = () => {};
+  const login = async (username: string, password: string) => {
+    return false; // Mock - sempre retorna false
+  };
 
   // Carregar usuário salvo ao montar o componente
   useEffect(() => {

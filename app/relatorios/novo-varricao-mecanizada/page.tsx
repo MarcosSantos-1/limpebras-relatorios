@@ -109,10 +109,11 @@ export default function NovoVarricaoMecanizadaPage() {
       
       const rel: RegistroRelatorio = {
         id,
+        title: assunto,
         tipoServico: "VARRICAO_MECANIZADA",
         assunto,
         dataInicio: dataInicioISO,
-        dataFim: dataFimISO,
+        dataTermino: dataFimISO,
         sub,
         local,
         descricao,
