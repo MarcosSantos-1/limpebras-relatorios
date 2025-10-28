@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/lib/auth';
+// import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
@@ -11,8 +11,10 @@ export default function LoginPage() {
   const [rememberUser, setRememberUser] = useState(false);
   const [savedUser, setSavedUser] = useState<string | null>(null);
   
-  const { login } = useAuth();
+  // const { login } = useAuth();
   const router = useRouter();
+  
+  const login = () => {};
 
   // Carregar usuário salvo ao montar o componente
   useEffect(() => {

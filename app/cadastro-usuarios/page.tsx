@@ -1,11 +1,28 @@
 "use client";
 import { useState } from 'react';
-import { useUserManagement, User } from '@/lib/auth';
+// import { useUserManagement, User } from '@/lib/auth';
 import { RoleGuard } from '@/components/RoleGuard';
 import { toast } from 'react-toastify';
 
+// Tipo User mockado
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  role: 'admin' | 'user' | 'host';
+  active: boolean;
+};
+
 export default function UserRegistrationPage() {
-  const { users, addUser, updateUser, deleteUser, toggleUserStatus } = useUserManagement();
+  // const { users, addUser, updateUser, deleteUser, toggleUserStatus } = useUserManagement();
+  
+  // Mock dos dados
+  const users: User[] = [];
+  const addUser = () => {};
+  const updateUser = () => {};
+  const deleteUser = () => {};
+  const toggleUserStatus = () => {};
   const [showForm, setShowForm] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [formData, setFormData] = useState({

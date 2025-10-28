@@ -1,11 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useAuth } from "@/lib/auth";
+//import { useAuth } from "@/lib/auth";
 
 export function Navbar() {
   const [isDark, setIsDark] = useState(false);
-  const { user, logout, isAdmin } = useAuth();
+  //const { user, logout, isAdmin } = useAuth();
+  
+  // Valores mockados para desativar autenticação
+  const user = null;
+  const isAdmin = true; // Mostrar menus para todos
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   useEffect(() => {
@@ -39,10 +43,8 @@ export function Navbar() {
   };
 
   const handleLogout = () => {
-    logout();
+    // Logout desativado
     setShowUserMenu(false);
-    // Redirecionar para a página inicial após logout
-    window.location.href = '/';
   };
   return (
     <header className="w-full border-b border-zinc-200 dark:border-white/10 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
