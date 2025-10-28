@@ -38,7 +38,7 @@ export async function getPuppeteerConfig() {
   } else {
     // Configuração para desenvolvimento local
     if (puppeteerDev) {
-      // Usar puppeteer completo se disponível
+      // Usar puppeteer completo se disponível (sem executablePath necessário)
       return {
         headless: true,
         args: [
@@ -57,7 +57,28 @@ export async function getPuppeteerConfig() {
         timeout: 600000 // 10 minutos de timeout para relatórios grandes
       };
     } else {
-      // Fallback para puppeteer-core com executablePath
+      // Tentar usar Chrome instalado no sistema
+      const possibleChromePaths = [
+        'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', // Windows
+        'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe', // Windows
+        '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', // macOS
+        '/usr/bin/google-chrome', // Linux
+        '/usr/bin/chromium-browser', // Linux
+      ];
+
+      const { default: fs } = await import('fs');
+      const executablePath = possibleChromePaths.find(path => {
+        try {
+          return fs.existsSync(path);
+        } catch {
+          return false;
+        }
+      });
+
+      if (!executablePath) {
+        throw new Error('Chrome/Chromium não encontrado no sistema. Instale o Google Chrome ou use `npm install puppeteer` para desenvolvimento.');
+      }
+
       return {
         headless: true,
         args: [
@@ -66,7 +87,7 @@ export async function getPuppeteerConfig() {
           '--disable-dev-shm-usage',
           '--disable-gpu'
         ],
-        executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', // Caminho padrão do Chrome no macOS
+        executablePath,
         timeout: 600000
       };
     }
