@@ -26,7 +26,7 @@ export async function getPuppeteerConfig() {
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     console.log('🐳 Usando Chromium do Docker:', process.env.PUPPETEER_EXECUTABLE_PATH);
     return {
-      headless: true,
+      headless: 'new',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -34,9 +34,29 @@ export async function getPuppeteerConfig() {
         '--disable-accelerated-2d-canvas',
         '--no-first-run',
         '--disable-gpu',
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins,site-per-process',
+        '--disable-site-isolation-trials',
+        '--disable-background-networking',
+        '--disable-background-timer-throttling',
+        '--disable-breakpad',
+        '--disable-client-side-phishing-detection',
+        '--disable-default-apps',
+        '--disable-hang-monitor',
+        '--disable-popup-blocking',
+        '--disable-prompt-on-repost',
+        '--disable-sync',
+        '--disable-translate',
+        '--metrics-recording-only',
+        '--no-crash-upload',
+        '--no-default-browser-check',
+        '--no-pings',
+        '--password-store=basic',
+        '--use-mock-keychain',
         '--single-process'
       ],
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+      timeout: 60000,
     };
   }
   
