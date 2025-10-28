@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Configuração do Supabase
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzurwjixlqremctcpwhk.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6dXJ3aml4bHFyZW1jdGNwd2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MzI1OTAsImV4cCI6MjA3NDQwODU5MH0.0h2LZLii3bQrV1anVQ9VIPog6RfHO9RuhI22G4V994Y'
+// Configuração do Supabase (apenas para upload de documentos)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
