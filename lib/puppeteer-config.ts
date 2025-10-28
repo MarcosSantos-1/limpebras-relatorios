@@ -24,16 +24,14 @@ export async function getPuppeteerConfig() {
   
   if (isProduction) {
     // Configuração para Vercel/Produção - usar chromium
-    chromium.setGraphicsMode = false; // Desabilitar gráficos na Vercel
-    chromium.setHeadlessMode = true; // Modo headless
+    // Configurar chromium antes de pegar o executablePath
+    chromium.setGraphicsMode(false);
     
     return {
       headless: chromium.headless,
-      args: chromium.args,
+      args: [...chromium.args, '--single-process'],
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(
-        process.env.CHROMIUM_EXECUTABLE_PATH || undefined
-      ),
+      executablePath: await chromium.executablePath(),
     };
   } else {
     // Configuração para desenvolvimento local

@@ -14,7 +14,7 @@
     "postbuild": "echo '✅ Build concluído! Pronto para deploy.'"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^131.0.0",
+    "@sparticuz/chromium": "119.0.0",
     "@supabase/supabase-js": "^2.58.0",
     "@types/uuid": "^10.0.0",
     "date-fns": "^4.1.0",
