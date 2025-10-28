@@ -23,23 +23,17 @@ export async function getPuppeteerConfig() {
   const isProduction = process.env.NODE_ENV === 'production';
   
   if (isProduction) {
-    // Configuração para Vercel/Produção - usar chromium-min
+    // Configuração para Vercel/Produção - usar chromium
+    chromium.setGraphicsMode = false; // Desabilitar gráficos na Vercel
+    chromium.setHeadlessMode = true; // Modo headless
+    
     return {
-      headless: true,
-      args: [
-        ...chromium.args,
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-        '--disable-gpu',
-        '--disable-web-security',
-        '--disable-features=VizDisplayCompositor'
-      ],
-      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        process.env.CHROMIUM_EXECUTABLE_PATH || undefined
+      ),
     };
   } else {
     // Configuração para desenvolvimento local
