@@ -1433,7 +1433,7 @@ export function generateRegistroHTML(rel: RegistroRelatorio): string {
         <div class="service-logo"></div>
         <div class="service-title">RELATÓRIO OPERAÇÃO <br> SÃO PAULO LIMPA</div>
         <div class="service-period">${formatPeriodForServicePage(rel)}</div>
-        <div class="service-subregion">${SUB_REGIOES[rel.sub]}</div>
+        <div class="service-subregion">${(SUB_REGIOES as any)[rel.sub] || rel.sub}</div>
         <div class="service-footer-line"></div>
     </div>
     

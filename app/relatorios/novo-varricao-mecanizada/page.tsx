@@ -130,7 +130,25 @@ export default function NovoVarricaoMecanizadaPage() {
       toast.error("Erro ao salvar. Tentando limpar relatórios antigos...");
       await clearOldReports();
       try {
-        await upsertReport(rel);
+        const now = Date.now();
+        const id = uuidv4();
+        
+        const retryRel: RegistroRelatorio = {
+          id,
+          title: assunto,
+          tipoServico: "VARRICAO_MECANIZADA",
+          assunto,
+          dataInicio: dataInicio!.toISOString().split('T')[0],
+          dataTermino: dataFim!.toISOString().split('T')[0],
+          sub,
+          local,
+          descricao,
+          fotos: fotos.map(url => ({ url, descricao: assunto })),
+          createdAt: now,
+          updatedAt: now,
+        };
+        
+        await upsertReport(retryRel);
         toast.success("Relatório salvo com sucesso!");
         window.location.href = `/relatorios`;
       } catch (retryError) {

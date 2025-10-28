@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer-core';
 import { getPuppeteerConfig } from '@/lib/puppeteer-config';
-import type { Relatorio, RegistroRelatorio, RevitalizacaoRelatorio } from '@/lib/types';
+import type { Relatorio, RegistroRelatorio, RevitalizacaoRelatorio, EventosRelatorio } from '@/lib/types';
 import { SUB_REGIOES, TIPOS_SERVICO, TITULOS_RELATORIOS } from '@/lib/types';
 import { getImageUrls } from './image-loader';
 import { formatPeriodForServicePage } from '@/lib/utils';
@@ -33,7 +33,7 @@ function formatDateForCover(date: string | Date): string {
 }
 
 // Função para gerar HTML do relatório de eventos
-function generateEventosHTML(rel: Relatorio): string {
+function generateEventosHTML(rel: EventosRelatorio | RegistroRelatorio): string {
   const images = getImageUrls();
   
   return `
@@ -232,8 +232,8 @@ function generateEventosHTML(rel: Relatorio): string {
     <!-- Capa -->
     <div class="page cover">
         <h1>RELATÓRIO DE EVENTOS</h1>
-        <h2>${SUB_REGIOES[rel.sub] || rel.sub}</h2>
-        <div class="date">${formatDateForCover(rel.dataInicio || rel.data)}</div>
+        <h2>${(SUB_REGIOES as any)[rel.sub] || rel.sub}</h2>
+        <div class="date">${formatDateForCover(('dataInicio' in rel ? rel.dataInicio : 'data' in rel ? (rel as any).data : ''))}</div>
         <img src="${images.logo}" alt="Logo" class="logo">
     </div>
     
@@ -253,7 +253,7 @@ function generateEventosHTML(rel: Relatorio): string {
             </div>
             <div class="info-item">
                 <h3>Sub-região</h3>
-                <p>${SUB_REGIOES[rel.sub] || rel.sub}</p>
+                <p>${(SUB_REGIOES as any)[rel.sub] || rel.sub}</p>
             </div>
             <div class="info-item">
                 <h3>Local</h3>
@@ -261,7 +261,7 @@ function generateEventosHTML(rel: Relatorio): string {
             </div>
             <div class="info-item">
                 <h3>Nome do Evento</h3>
-                <p>${rel.nomeEvento || 'Não informado'}</p>
+                <p>${('nomeEvento' in rel ? rel.nomeEvento : 'Não informado')}</p>
             </div>
         </div>
         
@@ -277,7 +277,7 @@ function generateEventosHTML(rel: Relatorio): string {
             ${rel.fotos.map(foto => `
                 <div class="photo-item">
                     <img src="${foto.url}" alt="Foto do evento">
-                    <div class="photo-caption">${rel.nomeEvento || 'Evento'}</div>
+                    <div class="photo-caption">${('nomeEvento' in rel ? rel.nomeEvento : 'Evento')}</div>
                 </div>
             `).join('')}
         </div>
@@ -292,7 +292,7 @@ function generateEventosHTML(rel: Relatorio): string {
 }
 
 // Função para gerar HTML do relatório de evidências
-function generateEvidenciasHTML(rel: Relatorio): string {
+function generateEvidenciasHTML(rel: Relatorio | EventosRelatorio | RegistroRelatorio): string {
   const images = getImageUrls();
   
   return `
@@ -855,7 +855,7 @@ function generateEvidenciasHTML(rel: Relatorio): string {
         <div class="cover-logo"></div>
         <div class="cover-content">
             <h1 class="cover-title">RELATÓRIO DE EVIDÊNCIAS</h1>
-            <div class="cover-date">${formatDateForCover(rel.tipoServico === 'DDS' ? rel.dataInicio : ('data' in rel ? rel.data : rel.dataInicio))}</div>
+            <div class="cover-date">${formatDateForCover(rel.tipoServico === 'DDS' ? ('dataInicio' in rel ? rel.dataInicio : '') as string : ('data' in rel ? rel.data : ('dataInicio' in rel ? rel.dataInicio : '')) as string)}</div>
         </div>
     </div>
     
@@ -1064,7 +1064,7 @@ export async function exportEvidenciasPdf(rel: Relatorio): Promise<Uint8Array> {
 }
 
 // Função para exportar PDF de eventos
-export async function exportEventosPdf(rel: Relatorio): Promise<Uint8Array> {
+export async function exportEventosPdf(rel: EventosRelatorio | RegistroRelatorio): Promise<Uint8Array> {
   console.log('🎯 Iniciando exportEventosPdf para:', rel.tipoServico);
   
   const config = await getPuppeteerConfig();
