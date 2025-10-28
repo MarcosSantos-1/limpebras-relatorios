@@ -28,7 +28,7 @@ import { generateFileName, generateConsolidatedFileName } from '@/lib/filename-g
 import { generatePDFFromHTML } from '@/lib/puppeteer-config';
 
 // Tipos TypeScript
-import type { MutiraoRelatorio, RegistroRelatorio, ReportSummary, Relatorio, MonumentosRelatorio, RotineirosRelatorio } from '@/lib/types';
+import type { MutiraoRelatorio, RegistroRelatorio, ReportSummary, Relatorio, MonumentosRelatorio, RotineirosRelatorio, EventosRelatorio } from '@/lib/types';
 
 export async function POST(request: NextRequest) {
   try {
