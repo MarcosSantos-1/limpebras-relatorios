@@ -19,10 +19,10 @@ export default function UserRegistrationPage() {
   
   // Mock dos dados
   const users: User[] = [];
-  const addUser = () => {};
-  const updateUser = () => {};
-  const deleteUser = () => {};
-  const toggleUserStatus = () => {};
+  const addUser = (userData: any) => {};
+  const updateUser = (id: string, userData: any) => {};
+  const deleteUser = (id: string) => {};
+  const toggleUserStatus = (id: string) => {};
   const [showForm, setShowForm] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [formData, setFormData] = useState({
