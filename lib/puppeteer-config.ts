@@ -6,7 +6,7 @@
  */
 
 import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium-min';
+import chromium from '@sparticuz/chromium';
 
 // Importar puppeteer completo para desenvolvimento
 let puppeteerDev: any = null;
