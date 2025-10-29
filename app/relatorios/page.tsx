@@ -17,6 +17,7 @@ export default function RelatoriosPage() {
   const [dataFiltro, setDataFiltro] = useState<string>("");
   const [dataFiltroDate, setDataFiltroDate] = useState<Date | null>(null);
   const [enderecoFiltro, setEnderecoFiltro] = useState<string>("");
+  const [showDeckMenu, setShowDeckMenu] = useState(false);
   const [storageInfo, setStorageInfo] = useState({ 
     documentCount: 0, 
     maxCapacity: 2 * 1024 * 1024 * 1024, // 2GB
@@ -256,35 +257,52 @@ export default function RelatoriosPage() {
           />
           </div>
           
-          <div className="flex flex-col gap-2">
-            <Link 
-              href="/relatorios/novo-registro" 
-              className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+          <div className="flex flex-col gap-2 relative z-50">
+            <button
+              onClick={() => setShowDeckMenu(!showDeckMenu)}
+              className="bg-gradient-to-r from-blue-700 to-cyan-500 hover:from-blue-600 hover:to-cyan-400 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-xl flex items-center justify-center gap-2 group relative z-50"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
-              Adicionar Evidência
-            </Link>
-            <Link 
-              href="/relatorios/novo-rotineiros-lote" 
-              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              Novo Registro
+              <svg className={`w-4 h-4 transition-transform duration-300 ${showDeckMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
-              Registro em Lote - Rotineiros
-            </Link>
-            <Link 
-              href="/relatorios/novo-ecopontos-lote" 
-              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-              Registro em Lote - Ecopontos
-            </Link>
+            </button>
+
+            {showDeckMenu && (
+              <div className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40`} onClick={() => setShowDeckMenu(false)}></div>
+            )}
+            
+            <div className={`absolute left-0 right-0 top-full mt-2 ${showDeckMenu ? 'opacity-100 z-50' : 'opacity-0 -z-10'} transition-opacity duration-500`}>
+              <div className={`flex flex-col gap-2 ${showDeckMenu ? 'h-auto' : 'h-0'} overflow-hidden transition-all duration-300`}>
+                <Link 
+                  href="/relatorios/novo"
+                  className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white px-4 py-2.5 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 hover:scale-[1.02] transform origin-center"
+                  onClick={() => setShowDeckMenu(false)}
+                >
+                  🏗️ Mutirão
+                </Link>
+                <Link 
+                  href="/relatorios/novo-rotineiros-lote"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-400 text-white px-4 py-2.5 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 hover:scale-[1.02] transform origin-center"
+                  onClick={() => setShowDeckMenu(false)}
+                >
+                  ⚡ Registro em Lote - Rotineiros
+                </Link>
+                
+                <Link 
+                  href="/relatorios/novo-ecopontos-lote"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-400 text-white px-4 py-2.5 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 hover:scale-[1.02] transform origin-center"
+                  onClick={() => setShowDeckMenu(false)}
+                >
+                  🏠 Registro em Lote - Ecopontos
+                </Link>
+              </div>
+            </div>
           </div>
+        
         </div>
       </div>
 
