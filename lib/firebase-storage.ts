@@ -131,13 +131,26 @@ export async function listRelatoriosFromFirebase(): Promise<ReportSummary[]> {
       const data = doc.data();
       const rel: Relatorio = data.dados;
       
+      // Extrair sub e endereco de diferentes estruturas de relatório
+      let subValue = (rel as any).sub || '';
+      let enderecoValue = (rel as any).local || (rel as any).endereco || '';
+      
+      // Para Mutirão, tentar extrair da primeira seção
+      if ('secoes' in rel && Array.isArray(rel.secoes) && rel.secoes.length > 0) {
+        const primeiraSecao = rel.secoes[0];
+        if (primeiraSecao) {
+          subValue = (primeiraSecao as any).sub || subValue;
+          enderecoValue = (primeiraSecao as any).local || enderecoValue;
+        }
+      }
+      
       reports.push({
         id: rel.id,
         title: rel.title,
         tipoServico: rel.tipoServico,
         data: (rel as any).data || '',
-        sub: (rel as any).sub || '',
-        endereco: (rel as any).local || (rel as any).endereco || '',
+        sub: subValue,
+        endereco: enderecoValue,
         fotoCount: countFotos(rel),
       });
     });
