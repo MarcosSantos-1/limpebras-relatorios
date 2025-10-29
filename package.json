@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "build:prod": "ESLINT_NO_DEV_ERRORS=true next build",
-    "start": "next start",
+    "start": "next start -p ${PORT:-8080}",
     "lint": "eslint",
     "deploy": "./deploy.sh",
     "deploy:vercel": "vercel --prod",
