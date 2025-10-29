@@ -31,7 +31,7 @@ export async function saveRelatorioToFirebase(relatorio: Relatorio): Promise<Rel
     await addDoc(collection(db, 'relatorios'), {
       id: relatorioWithUrls.id,
       tipo_servico: relatorioWithUrls.tipoServico,
-      titulo: relatorioWithUrls.title,
+      titulo: (relatorioWithUrls as any).title || (relatorioWithUrls as any).assunto || 'Relatório',
       dados: relatorioWithUrls,
       createdAt: new Date(relatorioWithUrls.createdAt),
       updatedAt: new Date(relatorioWithUrls.updatedAt),
@@ -146,7 +146,7 @@ export async function listRelatoriosFromFirebase(): Promise<ReportSummary[]> {
       
       reports.push({
         id: rel.id,
-        title: rel.title,
+        title: (rel as any).title || (rel as any).assunto || 'Relatório',
         tipoServico: rel.tipoServico,
         data: (rel as any).data || '',
         sub: subValue,
