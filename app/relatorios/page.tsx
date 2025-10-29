@@ -157,7 +157,7 @@ export default function RelatoriosPage() {
   return (
     <div className="space-y-6">
       {/* Header com estatísticas */}
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
+      <div className="bg-gradient-to-r from-blue-700 to-cyan-500 rounded-xl p-6 text-white shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-2xl font-bold">📊 Relatórios</h1>
@@ -172,21 +172,21 @@ export default function RelatoriosPage() {
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
             <div className="text-sm font-medium">
-              💾 Armazenamento IndexedDB: {Math.round(storageInfo.usedCapacity / 1024 / 1024)}MB / {Math.round(storageInfo.maxCapacity / 1024 / 1024)}MB
+              🔥 Armazenamento Firebase: {items.length > 0 ? (items.reduce((acc, r) => acc + ((r.fotoCount || 0) * 0.2), 0)).toFixed(2) : '0.00'} MB / 5120 MB
             </div>
-            <div className="text-sm font-bold">{storageInfo.percentage}%</div>
+            <div className="text-sm font-bold">{items.length > 0 ? ((items.reduce((acc, r) => acc + ((r.fotoCount || 0) * 0.2), 0) / 5120) * 100).toFixed(2) : '0.00'}%</div>
           </div>
           <div className="w-full bg-white/20 rounded-full h-3">
             <div 
               className={`h-3 rounded-full transition-all duration-500 ${
-                storageInfo.percentage > 90 ? 'bg-red-400' : 
-                storageInfo.percentage > 70 ? 'bg-orange-400' : 'bg-green-400'
+                items.length > 0 && ((items.reduce((acc, r) => acc + ((r.fotoCount || 0) * 0.2), 0) / 5120) * 100) > 90 ? 'bg-red-400' : 
+                items.length > 0 && ((items.reduce((acc, r) => acc + ((r.fotoCount || 0) * 0.2), 0) / 5120) * 100) > 70 ? 'bg-orange-400' : 'bg-green-400'
             }`}
-            style={{ width: `${Math.min(storageInfo.percentage, 100)}%` }}
+            style={{ width: `${Math.min(items.length > 0 ? ((items.reduce((acc, r) => acc + ((r.fotoCount || 0) * 0.2), 0) / 5120) * 100) : 0, 100)}%` }}
           ></div>
         </div>
-          <div className="text-xs text-indigo-100 mt-2">
-            Limite: 2GB | Documentos: {storageInfo.documentCount} | Capacidade: {Math.round(storageInfo.availableCapacity / 1024 / 1024 / 1024)}GB disponível
+          <div className="text-xs text-indigo-100 mt-2 Edinburgh">
+            Limite: 5GB | Documentos: {items.length} | Fotos: {items.length > 0 ? items.reduce((acc, r) => acc + (r.fotoCount || 0), 0) : 0} | Capacidade: {items.length > 0 ? (5120 - items.reduce((acc, r) => acc + ((r.fotoCount || 0) * 0.2), 0)).toFixed(2) : '5120.00'} MB disponível
           </div>
         </div>
       </div>
@@ -313,14 +313,14 @@ export default function RelatoriosPage() {
                 className="bg-white dark:bg-zinc-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-zinc-200 dark:border-zinc-700 overflow-hidden group hover:scale-[1.02]"
               >
                 {/* Header do card */}
-                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-zinc-700 dark:to-zinc-700 p-4 border-b border-zinc-200 dark:border-zinc-600">
+                <div className="bg-gradient-to-r from-blue-700 to-cyan-500 dark:from-blue-800 dark:to-cyan-600 p-4 border-b border-zinc-200 dark:border-zinc-600">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2 line-clamp-2">
+                      <h3 className="font-bold text-lg text-white mb-2 line-clamp-2">
                         {r.title}
                       </h3>
-                      <div className="flex items-center gap-2 mb-2">
-                  {r.sub ? (
+                      <div className="flex items-center gap-2">
+                        {r.sub ? (
                           <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-sm ${
                             r.sub === 'CV' ? 'bg-gradient-to-r from-green-400 to-green-500 text-white' :
                             r.sub === 'JT' ? 'bg-gradient-to-r from-indigo-400 to-indigo-500 text-white' :
@@ -331,9 +331,7 @@ export default function RelatoriosPage() {
                           }`}>
                             📍 {SUB_REGIOES[r.sub as keyof typeof SUB_REGIOES]}
                           </span>
-                        ) : (
-                          <span className="text-zinc-400 text-xs">Sem sub-região</span>
-                        )}
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -428,7 +426,7 @@ export default function RelatoriosPage() {
               onClick={() => setCurrentPage(page)}
               className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
                 currentPage === page
-                  ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg'
+                  ? 'bg-gradient-to-r from-blue-700 to-cyan-500 text-white shadow-lg'
                   : 'bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 shadow-sm hover:shadow-md'
               }`}
             >

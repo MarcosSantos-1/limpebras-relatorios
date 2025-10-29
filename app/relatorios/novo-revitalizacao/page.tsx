@@ -207,28 +207,7 @@ export default function NovoRevitalizacaoPage() {
           <input value={peso} onChange={(e) => handlePesoChange(e.target.value)} className="bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 px-3 py-2 rounded border border-zinc-300 dark:border-zinc-700 font-semibold transition-all duration-200 focus:border-zinc-500 dark:focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:focus:ring-zinc-700 focus:shadow-md" placeholder="Digite apenas números (ex: 1000)" />
         </div>
       </div>
-
-      <div className="flex flex-col gap-1">
-        <label className="text-xs text-black dark:text-zinc-400 font-bold">Peso</label>
-        <input 
-          type="text" 
-          value={peso} 
-          onChange={(e) => setPeso(e.target.value)} 
-          placeholder="Ex: 2.5kg"
-          className="bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 px-3 py-2 rounded border border-zinc-300 dark:border-zinc-700 font-semibold transition-all duration-200 focus:border-zinc-500 dark:focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:focus:ring-zinc-700 focus:shadow-md" 
-        />
-      </div>
-      
-      <div className="space-y-1">
-        <label className="text-xs text-black dark:text-zinc-400 font-bold">Frequência</label>
-        <input 
-          type="text" 
-          value={frequencia} 
-          onChange={(e) => setFrequencia(e.target.value)} 
-          placeholder="Ex: Diária, Semanal, Mensal"
-          className="bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 px-3 py-2 rounded border border-zinc-300 dark:border-zinc-700 font-semibold transition-all duration-200 focus:border-zinc-500 dark:focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:focus:ring-zinc-700 focus:shadow-md" 
-        />
-      </div>
+    
 
       <section className="space-y-4">
         <div className="flex justify-between items-center">

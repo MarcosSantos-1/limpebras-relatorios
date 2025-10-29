@@ -57,10 +57,10 @@ export function Navbar() {
   return (
     <header className="w-full border-b border-zinc-200 dark:border-white/10 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
       <nav className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-        <div className= "font-bold text-2xl text-purple-600 dark:text-purple-500"><span className="mr-2">👻</span> Relatórios - Limpebras</div>
+        <div className= "font-bold text-2xl  text-cyan-600 dark:text-blue-500"><span className="mr-2">👻</span> Relatórios - Limpebras</div>
         <ul className="flex items-center gap-4 text-sm font-bold">
           <li><Link href="/" className="hover:text-zinc-600 dark:hover:text-white flex items-center gap-1">
-            <svg className="w-4 h-4 font-bold text-purple-600 dark:text-purple-500" fill="none"  stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 font-bold text-cyan-600 dark:text-blue-500" fill="none"  stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
             Home
@@ -91,9 +91,6 @@ export function Navbar() {
                   <Link href="/relatorios/novo-ecopontos" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">Ecopontos</Link>
                   <Link href="/relatorios/novo-dds" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">DDS</Link>
                   <Link href="/relatorios/novo-eventos" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">Eventos</Link>
-                  <div className="border-t border-zinc-200 dark:border-zinc-700 my-1"></div>
-                  <Link href="/cadastros/eventos" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-purple-600 dark:text-purple-400 font-semibold">🎪 Eventos</Link>
-                  <Link href="/cadastro-usuarios" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-purple-600 dark:text-purple-400 font-semibold">👥 Usuários</Link>
                 </div>
               </div>
             </li>
@@ -110,7 +107,6 @@ export function Navbar() {
             <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               <div className="py-2">
                 <Link href="/relatorios/evidencias" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">Evidências - Mutirões</Link>
-                <Link href="/relatorios/evidencias-registros" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">Evidências - Registros</Link>
                 <Link href="/relatorios/evidencias-revitalizacoes" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">Evidências - Revitaliza</Link>
                 <Link href="/relatorios/evidencias-rotineiros" className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700">Evidências - Rotineiros</Link>
               </div>
@@ -159,21 +155,6 @@ export function Navbar() {
                 </div>
                 
                 <div className="py-2">
-                  {isAdmin && (
-                    <Link 
-                      href="/cadastro-usuarios" 
-                      className="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-purple-600 dark:text-purple-400 font-semibold"
-                      onClick={() => setShowUserMenu(false)}
-                    >
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                        </svg>
-                        👥 Gerenciar Usuários
-                      </div>
-                    </Link>
-                  )}
-                  
                   <button 
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 font-semibold"

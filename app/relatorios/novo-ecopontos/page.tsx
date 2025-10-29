@@ -5,6 +5,7 @@ import { RotineirosRelatorio, SubRegiao, ECOPONTOS_POR_SUBREGIAO } from "@/lib/t
 import { v4 as uuidv4 } from "uuid";
 import { RoleGuard } from "@/components/RoleGuard";
 import { toast } from 'react-toastify';
+import { CustomDatePicker } from "@/components/CustomDatePicker";
 
 export default function NovoEcopontosPage() {
   const [assunto] = useState("Serviços Rotineiros");
@@ -177,11 +178,10 @@ export default function NovoEcopontosPage() {
                 <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
                   Data do Serviço *
                 </label>
-                <input
-                  type="date"
-                  value={data ? data.toISOString().split('T')[0] : ''}
-                  onChange={(e) => setData(e.target.value ? new Date(e.target.value) : null)}
-                  className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                <CustomDatePicker
+                  selectedDate={data}
+                  onChange={setData}
+                  placeholder="Selecione a data do serviço"
                 />
               </div>
 

@@ -312,7 +312,7 @@ export default function NovoMutiraoPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">
           <label className="text-xs text-zinc-600 dark:text-zinc-400">Tipo de Serviço</label>
-          <select value={title} disabled className="bg-zinc-700 text-zinc-300 px-3 py-2 rounded border border-zinc-600 cursor-not-allowed font-semibold">
+          <select value={title} disabled className="bg-zinc-200 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-300 px-3 py-2 rounded border border-zinc-300 dark:border-zinc-600 cursor-not-allowed font-semibold">
             <option value="Mutirão - SELIMP">Mutirão - SELIMP</option>
           </select>
         </div>
@@ -534,9 +534,9 @@ export default function NovoMutiraoPage() {
         <section className="space-y-4">
           <h2 className="font-medium">Fotos dos Serviços</h2>
           {servicosSelecionados.map((servico) => (
-            <div key={servico} className="bg-zinc-900 border border-zinc-800 rounded p-4 space-y-3">
+            <div key={servico} className="bg-zinc-200 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded p-4 space-y-3">
               <div className="flex justify-between items-center">
-                <h3 className="font-medium text-zinc-200">{servico}</h3>
+                <h3 className="font-medium text-zinc-800 dark:text-zinc-200">{servico}</h3>
                 <div className="flex gap-2">
                   <input
                     type="file"

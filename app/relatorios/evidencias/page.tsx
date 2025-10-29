@@ -260,7 +260,7 @@ export default function EvidenciasPage() {
         </div>
 
         {filtered.length > 0 && dataFiltro && (
-          <div className="text-sm text-zinc-300">
+          <div className="text-sm text-blue-700 dark:text-blue-300">
             <strong>{filtered.length}</strong> relatório(s) encontrado(s) para a data <strong>
               {(() => {
                 // Converte "2025-09-23" para "23 de Setembro de 2025"
@@ -290,7 +290,7 @@ export default function EvidenciasPage() {
                         return acc;
                       }, {} as Record<string, number>)
                   ).map(([sub, count]) => (
-                    <div key={sub} className="text-xs text-zinc-100 dark:text-zinc-100">
+                    <div key={sub} className="text-xs font-bold text-blue-700 dark:text-blue-300">
                       • {SUB_REGIOES[sub as keyof typeof SUB_REGIOES]}: {count} mutirão(ões)
                     </div>
                   ))}
@@ -305,7 +305,7 @@ export default function EvidenciasPage() {
         <h2 className="text-lg font-semibold mb-3">Relatórios Encontrados</h2>
         
         {filtered.length === 0 ? (
-          <p className="text-zinc-400">Nenhum relatório encontrado com os filtros aplicados.</p>
+          <p className="text-zinc-700 dark:text-zinc-400">Nenhum relatório encontrado com os filtros aplicados.</p>
         ) : (
           <div className="space-y-2">
             {filtered.map((item) => (

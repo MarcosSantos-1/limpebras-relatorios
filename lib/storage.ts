@@ -1,10 +1,9 @@
 "use client";
 import { MutiraoRelatorio, RegistroRelatorio, RevitalizacaoRelatorio, DDSRelatorio, MonumentosRelatorio, EventosRelatorio, RotineirosRelatorio, Relatorio, ReportSummary } from "./types";
-// import { relatoriosService } from "./api-client"; // Removido - não mais usado
+import { saveRelatorioToFirebase, getRelatorioFromFirebase, listRelatoriosFromFirebase, deleteRelatorioFromFirebase } from "./firebase-storage";
 
-// Sistema de armazenamento usando IndexedDB apenas
+// Sistema de armazenamento híbrido: Firebase ou IndexedDB
 class RelatoriosStorage {
-  private useBackend = false;
   private localStorage = new LocalStorageFallback();
 
   // Inicializar
@@ -17,11 +16,30 @@ class RelatoriosStorage {
   // Salvar relatório
   async saveRelatorio(relatorio: Relatorio): Promise<Relatorio> {
     console.log("💾 Salvando relatório:", relatorio);
+    
+    // Tentar usar Firebase primeiro
+    try {
+      console.log("🔥 Tentando Firebase...");
+      const result = await saveRelatorioToFirebase(relatorio);
+      console.log("✅ Salvo no Firebase com sucesso");
+      return result;
+    } catch (error) {
+      console.error("❌ Erro no Firebase, usando IndexedDB:", error);
+    }
+    
+    // Fallback para IndexedDB
+    console.log("💾 Usando IndexedDB (fallback)");
     return await this.localStorage.saveRelatorio(relatorio);
   }
 
   // Buscar relatório por ID
   async getRelatorio(id: string): Promise<Relatorio | null> {
+    try {
+      const rel = await getRelatorioFromFirebase(id);
+      if (rel) return rel;
+    } catch (error) {
+      console.error("Erro ao buscar no Firebase:", error);
+    }
     return await this.localStorage.getRelatorio(id);
   }
 
@@ -32,12 +50,29 @@ class RelatoriosStorage {
 
   // Deletar relatório
   async deleteRelatorio(id: string): Promise<void> {
+    try {
+      await deleteRelatorioFromFirebase(id);
+      return;
+    } catch (error) {
+      console.error("Erro ao deletar no Firebase:", error);
+    }
     await this.localStorage.deleteRelatorio(id);
   }
 
   // Listar resumos dos relatórios
   async listRelatorios(): Promise<ReportSummary[]> {
     console.log("📋 Listando relatórios...");
+    
+    try {
+      const firebaseReports = await listRelatoriosFromFirebase();
+      if (firebaseReports.length > 0) {
+        console.log(`🔥 Encontrados ${firebaseReports.length} relatórios no Firebase`);
+        return firebaseReports;
+      }
+    } catch (error) {
+      console.error("Erro ao listar no Firebase:", error);
+    }
+    
     return await this.localStorage.listRelatorios();
   }
 

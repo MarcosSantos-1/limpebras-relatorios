@@ -46,9 +46,9 @@ export function DateRangePicker({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-zinc-800 text-zinc-100 px-3 py-2 rounded border border-zinc-700 text-left flex items-center justify-between"
+        className="w-full bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 px-3 py-2 rounded border border-zinc-300 dark:border-zinc-700 text-left flex items-center justify-between font-semibold"
       >
-        <span className={startDate || endDate ? "text-zinc-100" : "text-zinc-400"}>
+        <span className={startDate || endDate ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-500 dark:text-zinc-400"}>
           {formatDateRange()}
         </span>
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@ export function DateRangePicker({
       </button>
       
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 bg-zinc-800 border border-zinc-700 rounded shadow-lg z-50 p-4">
+        <div className="absolute top-full left-0 mt-1 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded shadow-lg z-50 p-4">
           <DatePicker
             selected={startDate}
             onChange={onChange}
@@ -73,7 +73,7 @@ export function DateRangePicker({
                 onStartDateChange(null);
                 onEndDateChange(null);
               }}
-              className="text-xs text-zinc-400 hover:text-zinc-300"
+              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-300"
             >
               Limpar
             </button>
