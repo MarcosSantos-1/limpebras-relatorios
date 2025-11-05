@@ -33,12 +33,13 @@ RUN npm run build
 # Remover devDependencies após build
 RUN npm prune --production
 
-# Expor porta
+# Expor porta (Fly.io define PORT dinamicamente)
 EXPOSE 8080
 
-# Variável de ambiente do Fly.io
+# Variável de ambiente do Fly.io (fallback para 8080 se não definido)
 ENV PORT=8080
+ENV HOSTNAME=0.0.0.0
 
-# Comando de inicialização
-CMD ["npm", "start"]
+# Comando de inicialização - usar shell para expandir PORT
+CMD sh -c "next start -H 0.0.0.0 -p ${PORT:-8080}"
 
