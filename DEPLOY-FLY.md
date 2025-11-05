@@ -42,6 +42,22 @@ fly deploy -a limpebras-relatorios
 - Use `fly deploy` diretamente
 - O `fly.toml` já está configurado corretamente
 
+## 🚨 Problema: "launch manifest was created for a app, but this is a Next.js app"
+
+Se você está recebendo esse erro, é porque o Fly.io está tentando fazer detecção automática de Next.js. 
+
+### Solução 1: Configurar no Dashboard do Fly.io
+
+1. Acesse https://fly.io/dashboard
+2. Selecione o app `limpebras-relatorios`
+3. Vá em **Settings** → **Deploy**
+4. **DESABILITE** "Auto-detect framework" ou configure para usar **"Docker"** explicitamente
+5. Garanta que está usando o **Dockerfile.fly**
+
+### Solução 2: Usar apenas Docker (Recomendado)
+
+No dashboard do Fly.io, configure para usar **"Docker"** como método de build, não "Auto-detect". O `fly.toml` já está configurado para usar `Dockerfile.fly`.
+
 ## Variáveis de ambiente
 
 Configure as variáveis de ambiente necessárias no Fly.io:
