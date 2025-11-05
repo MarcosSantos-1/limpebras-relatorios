@@ -16,17 +16,31 @@ curl -L https://fly.io/install.sh | sh
 fly auth login
 ```
 
-3. Crie a aplicação:
+3. **Se o app já existe**, use diretamente:
 ```bash
-fly launch
+fly deploy -a limpebras-relatorios
+```
+
+4. **Se o app NÃO existe**, crie primeiro:
+```bash
+# Criar app sem launch (evita o erro de manifest)
+fly apps create limpebras-relatorios --org personal
+
+# Depois faça o deploy
+fly deploy -a limpebras-relatorios
 ```
 
 ## Deploy
 
 Para fazer deploy, execute:
 ```bash
-fly deploy
+fly deploy -a limpebras-relatorios
 ```
+
+**⚠️ IMPORTANTE**: 
+- **NÃO use** `fly launch` se o app já existe
+- Use `fly deploy` diretamente
+- O `fly.toml` já está configurado corretamente
 
 ## Variáveis de ambiente
 
