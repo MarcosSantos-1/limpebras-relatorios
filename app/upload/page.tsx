@@ -4,6 +4,9 @@ import SimpleUpload from '@/components/SimpleUpload';
 import { useSupabaseDocuments } from '@/lib/hooks/useSupabaseDocuments';
 import { toast } from 'react-toastify';
 
+// Forçar renderização dinâmica (não pré-renderizar no build)
+export const dynamic = 'force-dynamic';
+
 export default function UploadPage() {
   const { documentos, refetch, deleteDocumento } = useSupabaseDocuments();
   const [showUpload, setShowUpload] = useState(false);

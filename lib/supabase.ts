@@ -2,8 +2,10 @@ import { createClient } from '@supabase/supabase-js'
 
 // Configuração do Supabase (apenas para upload de documentos)
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzurwjixlqremctcpwhk.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key-for-build'
 
+// Criar cliente com uma chave dummy no build time para evitar erro
+// No runtime, se não tiver a chave real, as funções vão falhar mas não quebra o build
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
