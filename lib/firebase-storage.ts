@@ -18,6 +18,19 @@ import {
 import { Relatorio, ReportSummary } from './types';
 
 /**
+ * Extrair título de um relatório de forma type-safe
+ */
+function getRelatorioTitle(relatorio: Relatorio): string {
+  if ('title' in relatorio && typeof relatorio.title === 'string') {
+    return relatorio.title;
+  }
+  if ('assunto' in relatorio && typeof relatorio.assunto === 'string') {
+    return relatorio.assunto;
+  }
+  return 'Relatório';
+}
+
+/**
  * Salvar relatório no Firestore e fotos no Storage
  */
 export async function saveRelatorioToFirebase(relatorio: Relatorio): Promise<Relatorio> {
@@ -31,7 +44,7 @@ export async function saveRelatorioToFirebase(relatorio: Relatorio): Promise<Rel
     await addDoc(collection(db, 'relatorios'), {
       id: relatorioWithUrls.id,
       tipo_servico: relatorioWithUrls.tipoServico,
-      titulo: (relatorioWithUrls as any).title || (relatorioWithUrls as any).assunto || 'Relatório',
+      titulo: getRelatorioTitle(relatorioWithUrls),
       dados: relatorioWithUrls,
       createdAt: new Date(relatorioWithUrls.createdAt),
       updatedAt: new Date(relatorioWithUrls.updatedAt),
@@ -146,9 +159,9 @@ export async function listRelatoriosFromFirebase(): Promise<ReportSummary[]> {
       
       reports.push({
         id: rel.id,
-        title: (rel as any).title || (rel as any).assunto || 'Relatório',
+        title: getRelatorioTitle(rel),
         tipoServico: rel.tipoServico,
-        data: (rel as any).data || '',
+        data: (rel as any).data || (rel as any).dataInicio || '',
         sub: subValue,
         endereco: enderecoValue,
         fotoCount: countFotos(rel),
